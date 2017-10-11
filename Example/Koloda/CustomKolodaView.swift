@@ -36,4 +36,57 @@ class CustomKolodaView: KolodaView {
         return CGRect.zero
     }
 
+	
+    
+//    public func revertAction() {
+//        guard currentCardIndex > 0 && !animating else {
+//            return
+//        }
+//        if countOfCards - currentCardIndex >= countOfVisibleCards {
+//            if let lastCard = visibleCards.last {
+//                lastCard.removeFromSuperview()
+//                visibleCards.removeLast()
+//            }
+//        }
+//        currentCardIndex -= 1
+//
+//        if dataSource != nil {
+//            let firstCardView = createCard(at: currentCardIndex, frame: frameForTopCard())
+//
+//            if shouldTransparentizeNextCard {
+//                firstCardView.alpha = alphaValueTransparent
+//            }
+//            firstCardView.delegate = self
+//
+//            addSubview(firstCardView)
+//            visibleCards.insert(firstCardView, at: 0)
+//
+//            animating = true
+//            animator.applyReverseAnimation(firstCardView, completion: { [weak self] _ in
+//                guard let _self = self else {
+//                    return
+//                }
+//
+//                _self.animating = false
+//                _self.delegate?.koloda(_self, didShowCardAt: _self.currentCardIndex)
+//            })
+//        }
+//
+//        for (index, card) in visibleCards.dropFirst().enumerated() {
+//            if shouldTransparentizeNextCard {
+//                card.alpha = alphaValueSemiTransparent
+//            }
+//            card.isUserInteractionEnabled = false
+//
+//            let cardParameters = backgroundCardParametersForFrame(frameForCard(at: index + 1))
+//            animator.applyScaleAnimation(
+//                card,
+//                scale: cardParameters.scale,
+//                frame: cardParameters.frame,
+//                duration: defaultBackgroundCardFrameAnimationDuration,
+//                completion: nil
+//            )
+//        }
+//    }
+    
 }

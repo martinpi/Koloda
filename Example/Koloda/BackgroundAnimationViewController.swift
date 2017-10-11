@@ -16,6 +16,14 @@ private let frameAnimationSpringSpeed: CGFloat = 16
 private let kolodaCountOfVisibleCards = 2
 private let kolodaAlphaValueSemiTransparent: CGFloat = 0.1
 
+private let cardTransitions: Dictionary = [ 0 : [ 1, 2 ],
+                                            1 : [ 0, 2 ],
+                                            2 : [ 0, 1 ],
+                                            3 : [ 0, 1 ],
+                                            4 : [ 0, 1 ] ]
+
+private var nextCard: Int = 0
+
 class BackgroundAnimationViewController: UIViewController {
 
     @IBOutlet weak var kolodaView: CustomKolodaView!
@@ -24,11 +32,17 @@ class BackgroundAnimationViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         kolodaView.alphaValueSemiTransparent = kolodaAlphaValueSemiTransparent
-        kolodaView.countOfVisibleCards = kolodaCountOfVisibleCards
+        kolodaView.countOfVisibleCards = 1
         kolodaView.delegate = self
         kolodaView.dataSource = self
         kolodaView.animator = BackgroundKolodaAnimator(koloda: kolodaView)
-        
+		
+		for (index, values) in cardTransitions {
+			for (value) in values {
+				kolodaView.addTransition(from: index, to: value)
+			}
+		}
+		
         self.modalTransitionStyle = UIModalTransitionStyle.flipHorizontal
     }
     
@@ -55,7 +69,7 @@ extension BackgroundAnimationViewController: KolodaViewDelegate {
     }
     
     func koloda(_ koloda: KolodaView, didSelectCardAt index: Int) {
-        UIApplication.shared.openURL(URL(string: "https://yalantis.com/")!)
+//        UIApplication.shared.openURL(URL(string: "https://yalantis.com/")!)
     }
     
     func kolodaShouldApplyAppearAnimation(_ koloda: KolodaView) -> Bool {
@@ -76,6 +90,18 @@ extension BackgroundAnimationViewController: KolodaViewDelegate {
         animation?.springSpeed = frameAnimationSpringSpeed
         return animation
     }
+	
+	func koloda(_ koloda: KolodaView, draggedCardWithPercentage finishPercentage: CGFloat, in direction: SwipeResultDirection) {
+
+	}
+	
+    func koloda(_ koloda: KolodaView, didSwipeCardAt index: Int, in direction: SwipeResultDirection) {
+		
+    }
+
+	func koloda(_ koloda: KolodaView, didShowCardAt index: Int) {
+		debugPrint("== \(index)")
+	}
 }
 
 // MARK: KolodaViewDataSource
@@ -88,9 +114,9 @@ extension BackgroundAnimationViewController: KolodaViewDataSource {
     func kolodaNumberOfCards(_ koloda: KolodaView) -> Int {
         return numberOfCards
     }
-    
+	
     func koloda(_ koloda: KolodaView, viewForCardAt index: Int) -> UIView {
-        return UIImageView(image: UIImage(named: "cards_\(index + 1)"))
+		return UIImageView(image: UIImage(named: "cards_\(index + 1)"))
     }
     
     func koloda(_ koloda: KolodaView, viewForCardOverlayAt index: Int) -> OverlayView? {

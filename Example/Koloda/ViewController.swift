@@ -56,6 +56,7 @@ class ViewController: UIViewController {
 extension ViewController: KolodaViewDelegate {
     
     func kolodaDidRunOutOfCards(_ koloda: KolodaView) {
+        
         let position = kolodaView.currentCardIndex
         for i in 1...4 {
           dataSource.append(UIImage(named: "Card_like_\(i)")!)
