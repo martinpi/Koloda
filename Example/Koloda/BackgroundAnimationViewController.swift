@@ -10,22 +10,40 @@ import UIKit
 import Koloda
 import pop
 
-private let numberOfCards: Int = 10
+private let numberOfCards: Int = 28
 private let frameAnimationSpringBounciness: CGFloat = 9
 private let frameAnimationSpringSpeed: CGFloat = 16
-private let kolodaCountOfVisibleCards = 2
+private let kolodaCountOfVisibleCards = 1
 private let kolodaAlphaValueSemiTransparent: CGFloat = 0.1
 
-private let cardTransitions: Dictionary = [ 0 : [ 1, 2 ],
-                                            1 : [ 2, 3 ],
-                                            2 : [ 3, 4 ],
-                                            3 : [ 4, 0 ],
-                                            4 : [ 5, 0 ],
-                                            5 : [ 6, 0 ],
-                                            6 : [ 7, 0 ],
-                                            7 : [ 8, 0 ],
-                                            8 : [ 9, 0 ],
-                                            9 : [ 0, 1 ] ]
+private let cardTransitions: Dictionary = [ 0 : [ 2, 1 ],
+                                            1 : [ 3, 4 ],
+                                            2 : [ 6, 5 ],
+                                            3 : [ 8, 25 ],
+                                            4 : [ 7, 20 ],
+                                            5 : [ 1, 3 ],
+                                            6 : [ 5, 1 ],
+                                            7 : [ 17, 18 ],
+                                            8 : [ 9, 25 ],
+                                            9 : [ 10, 24 ],
+                                            10 : [ 11, 19 ],
+                                            11 : [ 12, 19 ],
+                                            12 : [ 13, 21 ],
+                                            13 : [ 14, 22 ],
+                                            14 : [ 23,15 ],
+                                            15 : [ 26, 16 ],
+                                            16 : [ 25, 27 ],
+                                            17 : [ 0, 0 ],
+                                            18 : [ 0, 0 ],
+                                            19 : [ 0, 0 ],
+                                            20 : [ 0, 0 ],
+                                            21 : [ 0, 0 ],
+                                            22 : [ 0, 0 ],
+                                            23 : [ 0, 0 ],
+                                            24 : [ 0, 0 ],
+                                            25 : [ 0, 0 ],
+                                            26 : [ 0, 0 ],
+                                            27 : [ 0, 0 ] ]
 
 private var nextCard: Int = 0
 
@@ -37,7 +55,7 @@ class BackgroundAnimationViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         kolodaView.alphaValueSemiTransparent = kolodaAlphaValueSemiTransparent
-        kolodaView.countOfVisibleCards = 1
+        kolodaView.countOfVisibleCards = kolodaCountOfVisibleCards
         kolodaView.delegate = self
         kolodaView.dataSource = self
         kolodaView.animator = BackgroundKolodaAnimator(koloda: kolodaView)
